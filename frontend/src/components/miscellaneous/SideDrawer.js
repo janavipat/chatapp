@@ -76,11 +76,12 @@ function SideDrawer() {
           Authorization: `Bearer ${user.token}`,
         },
       };
-
+      
       const { data } = await axios.get(`/api/user?search=${search}`, config);
-
+      
       setLoading(false);
       setSearchResult(data);
+      console.log(searchResult);
     } catch (error) {
       toast({
         title: "Error Occured!",
@@ -121,6 +122,7 @@ function SideDrawer() {
       });
     }
   };
+  
 
   return (
     <>
@@ -208,11 +210,15 @@ function SideDrawer() {
               <ChatLoading />
             ) : (
               searchResult?.map((user) => (
+              
                 <UserListItem
                   key={user._id}
                   user={user}
+                  
                   handleFunction={() => accessChat(user._id)}
                 />
+                
+                
               ))
             )}
             {loadingChat && <Spinner ml="auto" d="flex" />}
